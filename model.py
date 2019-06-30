@@ -2,28 +2,21 @@ from math import factorial, pi
 import numpy as np
 import matplotlib
 import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
 from matplotlib import cm
 
 # Note: np math functions hve to be used when involving ndarrays (r, theta, phi)
 
-import scipy.special as spe
-
 # 4.3 #
 # constants
 Z = 1                           # proton number
-a0 = Z * 50 # 0.528 * 10**-10        # reduced Bohr radius
+a0 = Z * 0.528 * 10**-10   # reduced Bohr radius
 
 # derivative generation
 
-# def derivative(f, x, dx):
-#     """ Differentiates function f with respect to x. """
-#     return 
-
-
-def ordered_derivative(f, n, dx):
+def ordered_derivative(f, n):
     """ Calculates the nth-powered derivative of function f. """
 
+    dx = 1e-5
     derivative = lambda x: (f(x+dx) - f(x)) / dx
 
     if n == 0:
@@ -31,30 +24,15 @@ def ordered_derivative(f, n, dx):
     elif n == 1:
         return derivative
     else:
-        return ordered_derivative(derivative, n-1, dx)
-
-
-def generate_dx(x):
-    """ Ensure dx is at least around 10^-3 times of x. """
-
-    dx = 1e-5
-
-    # order_of_magnitude = np.log10(x).astype(int)
-
-    # if order_of_magnitude.min() < -4: # 0.0001 original value
-    #     dx = 10.0**(order_of_magnitude - 3) # 3 times lower
-
-    return dx
-
+        return ordered_derivative(derivative, n-1)
 
 # 4.4 #
 # polar equation
 
 def legendre(x, l, m):
     """ Associated Legendre Polynomial """
-    dx = generate_dx(x)
     f = lambda x: (x**2 - 1)**l
-    df = ordered_derivative(f, l+m, dx)
+    df = ordered_derivative(f, l+m)
     return ((1-x**2)**(m/2))/(2**l * factorial(l)) * df(x)
 
 
@@ -74,9 +52,8 @@ def angular(theta, phi, l, m):
 
 def laguerre(x, a, k):
     """ Associated Laguerre Polynomial """
-    dx = generate_dx(x)
     f = lambda x: np.exp(-x) * x**(k + a)
-    df = ordered_derivative(f, k, dx)
+    df = ordered_derivative(f, k)
     return (x**(-a) * np.exp(-x)) / factorial(k) * df(x)
 
 def radial(r, n, l):
@@ -87,12 +64,14 @@ def radial(r, n, l):
     return norm * np.exp(u/2) * (u**l) * laguerre(u, 2*l + 1, n-l-1)
 
 
+# 4.6 #
+
 # overall
 
 def Psi(r, theta, phi, n, l, m):
     return radial(r, n, l) * angular(theta, phi, l, m)
 
-# 4.6 #
+
 
 def validate_quantum_numbers(n, l, m):
     """ Ensure quantum numbers are within range. """
@@ -108,7 +87,6 @@ def validate_quantum_numbers(n, l, m):
 def graph(n, l, m, resolution=1000):
     
     # parameters for the plot (tuned such that the bohr radius is on the same scale as # pixels
-    #resolution = 1000
     frame_apothem = 500
 
 	# create array of data points
@@ -157,8 +135,8 @@ def graph(n, l, m, resolution=1000):
 
 if __name__ == "__main__":
     
-    n = 3
-    l = 1
+    n = 1
+    l = 0
     m = 0
 
     validate_quantum_numbers(n, l, m)
