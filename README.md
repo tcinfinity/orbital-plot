@@ -1,22 +1,20 @@
-Orbital Plots
-===
+# Orbital Plots
 
 Generates a plot of electron orbitals (probability density) based on
 the wave function of a hydrogen-like electron.
 
 ## Usage
-___
 
 The user interface has a few options that accept **integers**:
 
 - **_n_: Principal Quantum Number**<br>
-  <span style='color:#ff5050'>n</span> ≥ 0
+  <ins>n</ins> ≥ 0
 
 - **_l_: Azimuthal Quantum Number**<br>
-  0 ≥ <span style='color:#ff5050'>l</span> ≥ n-1
+  0 ≥ <ins>l</ins> ≥ n-1
 
 - **_m_: Magnetic Quantum Number**<br>
-  -n ≥ <span style='color:#ff5050'>m</span> ≥ n
+  -n ≥ <ins>m</ins> ≥ n
 
 - **Z: Number of protons**<br>
 
@@ -31,16 +29,16 @@ The user interface has a few options that accept **integers**:
 <br>
 All entries must be filled in except for the resolution.
 
-The ***Graph*** button can then be used to plot the graph.
+The ***`Graph`*** button can then be used to plot the graph.
 
 ## Executables
-___
 
-The `.exe` executable file (for Windows) and `.app` application file (for macOS / Mac OS X / OS X )
-can be found in the `dist` folder.
+Currently not working.
+
+~~The `.exe` executable file (for Windows) and `.app` application file (for macOS / Mac OS X / OS X )
+can be found in the `dist` folder.~~
 
 ## Code
-___
 
 If you are intending to run directly from the code or edit the code, 
 please note that this Python application uses:

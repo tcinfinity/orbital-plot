@@ -93,7 +93,7 @@ def graph(n, l, m, resolution=1000):
     x = np.linspace(-frame_apothem*1.6,frame_apothem*1.6,int(resolution*1.6))
     y = np.linspace(-frame_apothem,frame_apothem,resolution)
 
-    # square
+    # matrix
     X, Y = np.meshgrid(x, x)
 
     r = np.sqrt(X**2 + Y**2)
@@ -103,9 +103,10 @@ def graph(n, l, m, resolution=1000):
 	# create an array of wavefunction values (1e-10 added so that arctan never sees X/0)
     Z = np.abs(Psi(r, theta, phi, n, l, m))**2
 
+    # this is done to "raise" the lower, less perceptible values to sight
     Z = Z.astype(np.float)
     Z = np.sqrt(Z)
-    # this is done to "raise" the lower, less perceptible values to sight
+    
     # plot the wavefunction in grayscale
 
     plt.subplot(2, 1, 1)
